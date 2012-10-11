@@ -51,7 +51,7 @@ public class Client extends Thread
         	while(true){
 				try{
 					String message = (String)in.readObject();
-					System.out.println("client > " + message);
+					System.out.println("Message from ["+CLIENT_IP+"] ->" + message);
 				}
 				catch(ClassNotFoundException classnot){
 					System.err.println("Data received in unknown format");
