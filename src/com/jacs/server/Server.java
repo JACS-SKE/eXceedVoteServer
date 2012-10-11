@@ -1,12 +1,16 @@
 package com.jacs.server;
 
-import java.util.*;
-import java.net.*;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import javax.swing.JFrame;
 
 public class Server
 {
-    ServerSocket myServer;
-    Client myClient;
+    private ServerSocket myServer;
+    private Client myClient;
 
     public Server()
 	{
@@ -31,7 +35,9 @@ public class Server
 			KillServer("ERROR->Server Error.");
 		}
     }
-    void ShowStatus(String str)
+    
+    
+    public void ShowStatus(String str)
     {
         try
         {
@@ -43,7 +49,8 @@ public class Server
             System.out.println(e.toString());
         }
     }
-    void KillServer(String str)
+    
+    public void KillServer(String str)
     {
         try
         {

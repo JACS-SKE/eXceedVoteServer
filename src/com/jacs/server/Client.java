@@ -11,8 +11,8 @@ public class Client extends Thread
 
     String CLIENT_IP;
 
-    protected BufferedReader inMsg;
-    protected PrintWriter outMsg;
+    private ObjectOutputStream out;
+	private ObjectInputStream in;
 
     public Client(Server myServer,Socket mySocket) throws IOException
     {
@@ -23,38 +23,40 @@ public class Client extends Thread
         mySocket.setTcpNoDelay(true);
         try
         {
-            inMsg = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
-            outMsg = new PrintWriter(mySocket.getOutputStream(),true);
+        	out = new ObjectOutputStream(mySocket.getOutputStream());
+			out.flush();
+			in = new ObjectInputStream(mySocket.getInputStream());
+			SendData("Connected to Server");
         }
         catch(Exception e)
         {
             KillClient("ERROR->Client() : "+e.toString());
         }
     }
-    void SendData(String str)
+    
+    public void SendData(String str)
     {
-        outMsg.print(str+'\n');
-        if(outMsg.checkError())
-            KillClient("ERROR->SendData()");
+    	try{
+			out.writeObject(str);
+			out.flush();
+		}
+		catch(IOException ioException){
+			KillClient("ERROR->SendData()");
+		}
     }
+    
     public void run()
     {
         try{
-            synchronized(this)
-            {
-                char charBuffer[] = new char[1];
-                while(inMsg.read(charBuffer,0,1)!=-1)
-                {
-                    StringBuffer stringBuffer = new StringBuffer(1024);
-                    while((byte)charBuffer[0]!=10)
-                    {
-                        stringBuffer.append(charBuffer[0]);
-                        inMsg.read(charBuffer,0,1);
-                    }
-                    myServer.ShowStatus("Received From ["+CLIENT_IP+"]: "+stringBuffer.toString());
-                    SendData("Server Received :"+stringBuffer.toString());
-                }
-            }
+        	while(true){
+				try{
+					String message = (String)in.readObject();
+					System.out.println("client > " + message);
+				}
+				catch(ClassNotFoundException classnot){
+					System.err.println("Data received in unknown format");
+				}
+			}
         }
         catch(SocketException e)
         {
@@ -64,19 +66,23 @@ public class Client extends Thread
         {
             KillClient("ERROR->Client run() : "+e.toString());
         }
+        catch(OutOfMemoryError ofm){
+        	KillClient("Client Disconnected.");
+        }
         finally
         {
             KillClient("Client Disconnected.");
         }
     }
-    void KillClient(String str)
+    
+    public void KillClient(String str)
     {
         myServer.ShowStatus("["+CLIENT_IP+"] "+str);
         try
         {
             mySocket.close();
-            inMsg.close();
-            outMsg.close();
+            in.close();
+            out.close();
             myThread=null;
         }
         catch(Exception e)

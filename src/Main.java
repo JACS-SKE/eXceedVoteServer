@@ -1,4 +1,4 @@
-package com.jacs;
+
 import com.jacs.server.Server;
 
 
