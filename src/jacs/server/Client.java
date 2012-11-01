@@ -2,7 +2,6 @@ package jacs.server;
 
 import java.io.*;
 import java.net.*;
-import java.util.LinkedList;
 
 public class Client extends Thread
 {
@@ -14,9 +13,11 @@ public class Client extends Thread
 
     private ObjectOutputStream out;
 	private ObjectInputStream in;
+	//private DBController dbcontroller
 
     public Client(Server myServer,Socket mySocket) throws IOException
     {
+    	//new db
         this.myServer = myServer;
         this.mySocket = mySocket;
         this.CLIENT_IP = mySocket.getInetAddress().getHostAddress();
@@ -53,6 +54,8 @@ public class Client extends Thread
 				try{
 					String message = (String)in.readObject();
 					System.out.println("Message from ["+CLIENT_IP+"] ->" + message);
+					//sendData(db.receiveMsg(message));
+					sendData("Goooood!");
 				}
 				catch(ClassNotFoundException classnot){
 					System.err.println("Data received in unknown format");

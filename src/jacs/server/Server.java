@@ -65,7 +65,7 @@ public class Server
     }
     
     public void sendData(String msg){
-    	myClient.sendData(msg);
+    		myClient.sendData(msg);
     }
     
 }
