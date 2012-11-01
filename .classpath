@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="C:/Users/Computer/Desktop/Database_eXceedVote/lib/eclipselink.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Computer/Desktop/Database_eXceedVote/lib/javax.persistence_2.0.3.v201010191057.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Computer/Desktop/Database_eXceedVote/lib/mysql-connector-java-5.1.21-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/GoDParTicle/Documents/Software Spec/Library/eclipselink.jar"/>
+	<classpathentry kind="lib" path="/Users/GoDParTicle/Documents/Software Spec/Library/mysql-connector-java-5.1.21-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/GoDParTicle/Documents/Software Spec/Library/javax.persistence_2.0.3.v201010191057.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
