@@ -2,6 +2,7 @@ package jacs.server;
 
 import java.io.*;
 import java.net.*;
+import java.util.LinkedList;
 
 public class Client extends Thread
 {
@@ -13,6 +14,7 @@ public class Client extends Thread
 
     private ObjectOutputStream out;
 	private ObjectInputStream in;
+	private LinkedList<String> msgList;
 
     public Client(Server myServer,Socket mySocket) throws IOException
     {
@@ -26,22 +28,22 @@ public class Client extends Thread
         	out = new ObjectOutputStream(mySocket.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(mySocket.getInputStream());
-			SendData("Connected to Server");
+			sendData("Connected to Server");
         }
         catch(Exception e)
         {
-            KillClient("ERROR->Client() : "+e.toString());
+            killClient("ERROR->Client() : "+e.toString());
         }
     }
     
-    public void SendData(String str)
+    public void sendData(String str)
     {
     	try{
 			out.writeObject(str);
 			out.flush();
 		}
 		catch(IOException ioException){
-			KillClient("ERROR->SendData()");
+			killClient("ERROR->SendData()");
 		}
     }
     
@@ -52,6 +54,7 @@ public class Client extends Thread
 				try{
 					String message = (String)in.readObject();
 					System.out.println("Message from ["+CLIENT_IP+"] ->" + message);
+					msgList.add(message);
 				}
 				catch(ClassNotFoundException classnot){
 					System.err.println("Data received in unknown format");
@@ -60,24 +63,24 @@ public class Client extends Thread
         }
         catch(SocketException e)
         {
-            myServer.ShowStatus("["+CLIENT_IP+"] Connection Reset.");
+            myServer.showStatus("["+CLIENT_IP+"] Connection Reset.");
         }
         catch(Exception e)
         {
-            KillClient("ERROR->Client run() : "+e.toString());
+            killClient("ERROR->Client run() : "+e.toString());
         }
         catch(OutOfMemoryError ofm){
-        	KillClient("Client Disconnected.");
+        	killClient("Client Disconnected.");
         }
         finally
         {
-            KillClient("Client Disconnected.");
+            killClient("Client Disconnected.");
         }
     }
     
-    public void KillClient(String str)
+    public void killClient(String str)
     {
-        myServer.ShowStatus("["+CLIENT_IP+"] "+str);
+        myServer.showStatus("["+CLIENT_IP+"] "+str);
         try
         {
             mySocket.close();
@@ -87,7 +90,14 @@ public class Client extends Thread
         }
         catch(Exception e)
         {
-            myServer.ShowStatus("Client Error."+e);
+            myServer.showStatus("Client Error."+e);
         }
+    }
+    
+    public String getMsg(){
+    	if(msgList.size() > 0)
+    		return this.msgList.poll();
+    	else
+    		return "NULL";
     }
 }

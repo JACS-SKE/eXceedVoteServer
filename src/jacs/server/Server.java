@@ -16,28 +16,28 @@ public class Server
 	{
 		try
 		{
-			ShowStatus("Starting Server.");
+			showStatus("Starting Server.");
 			myServer = new ServerSocket(9999);
 			while(true)
 			{
 				Socket mySocket = myServer.accept();
 				myClient = new Client(this,mySocket);
-				ShowStatus("["+myClient.CLIENT_IP+"] Client Connected.");
+				showStatus("["+myClient.CLIENT_IP+"] Client Connected.");
 				myClient.start();
 			}
 		}
 		catch(Exception e)
 		{
-			KillServer("ERROR->Server() : "+e.toString());
+			killServer("ERROR->Server() : "+e.toString());
 		}
 		finally
 		{
-			KillServer("ERROR->Server Error.");
+			killServer("ERROR->Server Error.");
 		}
     }
     
     
-    public void ShowStatus(String str)
+    public void showStatus(String str)
     {
         try
         {
@@ -50,17 +50,25 @@ public class Server
         }
     }
     
-    public void KillServer(String str)
+    public void killServer(String str)
     {
         try
         {
             myServer.close();
-            ShowStatus("Server Stoped.");
-            ShowStatus(str);
+            showStatus("Server Stoped.");
+            showStatus(str);
         }
         catch(Exception e)
         {
-            ShowStatus("Server Error.");
+            showStatus("Server Error.");
         }
+    }
+    
+    public void sendData(String msg){
+    	myClient.sendData(msg);
+    }
+    
+    public String getMsg(){
+    	return myClient.getMsg();
     }
 }
