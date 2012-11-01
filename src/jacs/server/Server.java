@@ -68,7 +68,4 @@ public class Server
     	myClient.sendData(msg);
     }
     
-    public String getMsg(){
-    	return myClient.getMsg();
-    }
 }

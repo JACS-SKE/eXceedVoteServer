@@ -14,7 +14,6 @@ public class Client extends Thread
 
     private ObjectOutputStream out;
 	private ObjectInputStream in;
-	private LinkedList<String> msgList;
 
     public Client(Server myServer,Socket mySocket) throws IOException
     {
@@ -54,7 +53,6 @@ public class Client extends Thread
 				try{
 					String message = (String)in.readObject();
 					System.out.println("Message from ["+CLIENT_IP+"] ->" + message);
-					msgList.add(message);
 				}
 				catch(ClassNotFoundException classnot){
 					System.err.println("Data received in unknown format");
@@ -94,10 +92,4 @@ public class Client extends Thread
         }
     }
     
-    public String getMsg(){
-    	if(msgList.size() > 0)
-    		return this.msgList.poll();
-    	else
-    		return "NULL";
-    }
 }
