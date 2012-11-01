@@ -1,5 +1,7 @@
 package jacs.server;
 
+import jacs.database.exceed.controller.DatabasesController;
+
 import java.io.*;
 import java.net.*;
 
@@ -14,10 +16,12 @@ public class Client extends Thread
     private ObjectOutputStream out;
 	private ObjectInputStream in;
 	//private DBController dbcontroller
-
+	private DatabasesController controller_db;
     public Client(Server myServer,Socket mySocket) throws IOException
     {
     	//new db
+    		// create database controller
+    		controller_db = new DatabasesController();
         this.myServer = myServer;
         this.mySocket = mySocket;
         this.CLIENT_IP = mySocket.getInetAddress().getHostAddress();
@@ -25,7 +29,7 @@ public class Client extends Thread
         mySocket.setTcpNoDelay(true);
         try
         {
-        	out = new ObjectOutputStream(mySocket.getOutputStream());
+        		out = new ObjectOutputStream(mySocket.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(mySocket.getInputStream());
 			sendData("Connected to Server");
@@ -55,7 +59,7 @@ public class Client extends Thread
 					String message = (String)in.readObject();
 					System.out.println("Message from ["+CLIENT_IP+"] ->" + message);
 					//sendData(db.receiveMsg(message));
-					sendData("Goooood!");
+					sendData(controller_db.recieveMsg(message));
 				}
 				catch(ClassNotFoundException classnot){
 					System.err.println("Data received in unknown format");

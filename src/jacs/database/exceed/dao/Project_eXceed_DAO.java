@@ -19,7 +19,6 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 	
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
-	private static Scanner sc = new Scanner(System.in);
 	static {
 		emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 		em = emf.createEntityManager();
