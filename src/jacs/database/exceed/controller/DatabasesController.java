@@ -1,6 +1,5 @@
 package jacs.database.exceed.controller;
 
-import jacs.database.exceed.dao.User_DAO;
 
 public class DatabasesController {
 
@@ -17,15 +16,19 @@ public class DatabasesController {
 			String username = temp_msg[1];
 			String password = temp_msg[2];
 			if (type.toUpperCase().equals("REGIS")) {
-				User_DAO userDao = new User_DAO();
-				msg = userDao.regisUser(username, password);
+				
 			} else if (type.toUpperCase().equals("LOGIN")) {
-				User_DAO userDao = new User_DAO();
-				msg = userDao.loginUser(username, password);
+			
 			}
 		}else {
 			msg = "error";
 		}
 		return msg;
+	}
+	public String registration(String username, String password)	{
+		return "";
+	}
+	public String authentication(String usernam,String password)	{
+		return "";
 	}
 }

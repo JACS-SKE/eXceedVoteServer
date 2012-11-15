@@ -1,4 +1,4 @@
-package jacs.database.exceed.dao;
+package jacs.database.exceed.jpa;
 
 import jacs.database.exceed.model.Project_eXceed;
 import jacs.database.exceed.model.User;
@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 
-public class Project_eXceed_DAO {
+public class Project_eXceed_JPA {
 
 private static final String PERSISTENCE_UNIT = "exceedvote";
 	
