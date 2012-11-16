@@ -14,13 +14,32 @@ public class UserJpaDaoTest {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		String id;
+		String pass;
+		String type = "student";
 		user_dao = DaoFactory.getInstance().getUserDAO();
-		User user = new User("sagittarius", "1234","student");
-		//System.out.print(registration(user));
-		//System.out.print("New Password : ");
-		//System.out.println(changePassword(user, sc.nextLine()));
-		User x = findUser(user);
-		System.out.println(x.getId());
+		while (true) {
+			System.out.print("Registration(r) / Login(l) / ChangePassword(c) : ");
+			String mode = sc.nextLine();
+			if (mode.equalsIgnoreCase("r")) {
+				System.out.println("--------- Registration ---------");
+				System.out.print("Username : ");
+				id = sc.nextLine();
+				System.out.print("Password : ");
+				pass = sc.nextLine();
+				User user = new User(id,pass,type);
+				System.out.println("Process : "+registration(user));
+			} else if (mode.equalsIgnoreCase("l")) {
+				System.out.println("--------- Login ---------");
+				System.out.print("Username : ");
+				id = sc.nextLine();
+				System.out.print("Password : ");
+				pass = sc.nextLine();
+				User user = new User(id,pass,type);
+				System.out.println("Process : "+user_dao.login(user));
+			} else
+				break;
+		}
 	}
 	public static User findUser(User user)	{
 		return user_dao.findTestDao(user);
@@ -29,7 +48,9 @@ public class UserJpaDaoTest {
 		return user_dao.regisUser(user);
 	}
 	public static String changePassword(User user,String new_password)	{
-		return user_dao.changePassword(user , new_password);
+		User x = findUser(user);
+		return user_dao.changePassword(x , sc.nextLine());
 	}
+	
 
 }

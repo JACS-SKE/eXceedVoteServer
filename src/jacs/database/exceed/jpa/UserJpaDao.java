@@ -75,7 +75,7 @@ public class UserJpaDao implements UserDAO{
 	
 	public  String login(User user) {
 
-		if(checkMatchUser(user)) return "LOGIN_FAILED,"+user.getUsername()+","+user.getPassword();
+		if(!checkMatchUser(user)) return "LOGIN_FAILED,"+user.getUsername()+","+user.getPassword();
 		else return "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType();
 	}
 	
