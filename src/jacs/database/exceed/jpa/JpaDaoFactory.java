@@ -1,5 +1,6 @@
 package jacs.database.exceed.jpa;
 
+import jacs.database.exceed.dao.BallotDAO;
 import jacs.database.exceed.dao.DaoFactory;
 import jacs.database.exceed.dao.UserDAO;
 
@@ -11,9 +12,14 @@ public class JpaDaoFactory extends DaoFactory{
 	@Override
 	public UserDAO getUserDAO() {
 		if(userJpaDao == null)	{
-			userJpaDao = new User_JPA();
+			userJpaDao = new UserJpaDao();
 		}
 		return userJpaDao;
+	}
+	@Override
+	public BallotDAO getBallotDAO() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

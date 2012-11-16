@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 
-public class Project_eXceed_JPA {
+public class Project_eXceedJpaDao {
 
 private static final String PERSISTENCE_UNIT = "exceedvote";
 	

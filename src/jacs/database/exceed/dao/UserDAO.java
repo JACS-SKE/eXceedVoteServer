@@ -11,5 +11,5 @@ public interface UserDAO {
 	public String regisUser(User user);
 	public boolean checkMatchUser(User user);
 	public User findTestDao(User user);
-	
+	public String changePassword(User user,String new_password);
 }
