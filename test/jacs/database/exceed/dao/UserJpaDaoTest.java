@@ -1,5 +1,7 @@
 package jacs.database.exceed.dao;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import jacs.database.exceed.model.User;
@@ -19,7 +21,7 @@ public class UserJpaDaoTest {
 		String type = "student";
 		user_dao = DaoFactory.getInstance().getUserDAO();
 		while (true) {
-			System.out.print("Registration(r) / Login(l) / ChangePassword(c) : ");
+			System.out.print("Registration(r) / Login(l) / ChangePassword(c) / clearDb(clear) : ");
 			String mode = sc.nextLine();
 			if (mode.equalsIgnoreCase("r")) {
 				System.out.println("--------- Registration ---------");
@@ -27,30 +29,31 @@ public class UserJpaDaoTest {
 				id = sc.nextLine();
 				System.out.print("Password : ");
 				pass = sc.nextLine();
-				User user = new User(id,pass,type);
-				System.out.println("Process : "+registration(user));
+				System.out.println("Process : "+registration(id,pass));
 			} else if (mode.equalsIgnoreCase("l")) {
 				System.out.println("--------- Login ---------");
+				//LOGIN_SUCCESS,name,type,point
 				System.out.print("Username : ");
 				id = sc.nextLine();
 				System.out.print("Password : ");
 				pass = sc.nextLine();
 				User user = new User(id,pass,type);
-				System.out.println("Process : "+user_dao.login(user));
-			} else
+				System.out.println("Process : "+login(id,pass));
+			} else if ( mode.equalsIgnoreCase("clear"))	{
+				List<User> result = user_dao.findAllUser();
+				Iterator<User> it = result.iterator();
+				while(it.hasNext())	{
+					User user = it.next();
+					System.out.println(user_dao.deleteUser(user.getUsername(), user.getPassword()));
+				}
+			}else
 				break;
 		}
 	}
-	public static User findUser(User user)	{
-		return user_dao.findTestDao(user);
+	public static String registration(String username,String password)	{
+		return user_dao.regisUser(username,password);
 	}
-	public static String registration(User user)	{
-		return user_dao.regisUser(user);
+	public static String login(String username,String password)	{
+		return user_dao.loginUser(username, password);
 	}
-	public static String changePassword(User user,String new_password)	{
-		User x = findUser(user);
-		return user_dao.changePassword(x , sc.nextLine());
-	}
-	
-
 }

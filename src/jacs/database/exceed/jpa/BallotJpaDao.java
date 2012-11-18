@@ -14,7 +14,7 @@ import jacs.database.exceed.model.User;
 
 public class BallotJpaDao implements BallotDAO{
 	
-private static final String PERSISTENCE_UNIT = "exceedvote";
+	private static final String PERSISTENCE_UNIT = "exceedvote";
 	
 	private static EntityManagerFactory emf;
 	private static EntityManager em;

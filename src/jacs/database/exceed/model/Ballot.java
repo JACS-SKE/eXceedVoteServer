@@ -1,27 +1,30 @@
 package jacs.database.exceed.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 
-/**
- * Entity implementation class for Entity: Ballot
- *
- */
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 @Entity
-@Table(name="Ballots")
 public class Ballot implements Serializable {
+	
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private int project_id;
 	private String criteria;
+	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name="project_id")
+	private Project_eXceed project;
 	
-	private static final long serialVersionUID = 1L;
-
 	public Ballot() {
 		super();
 	}
@@ -36,7 +39,6 @@ public class Ballot implements Serializable {
 		result = prime * result
 				+ ((criteria == null) ? 0 : criteria.hashCode());
 		result = prime * result + id;
-		result = prime * result + project_id;
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -56,8 +58,6 @@ public class Ballot implements Serializable {
 			return false;
 		if (id != other.id)
 			return false;
-		if (project_id != other.project_id)
-			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;
@@ -73,28 +73,26 @@ public class Ballot implements Serializable {
 		this.user = user;
 	}
 
+	public Project_eXceed getProject() {
+		return project;
+	}
+
+	public void setProject(Project_eXceed project) {
+		this.project = project;
+	}
+
 	public int getId() {
 		return id;
 	}
 
 	@Override
 	public String toString() {
-		return "Ballot [id=" + id + ", project_id=" + project_id
+		return "Ballot [id=" + id
 				+ ", criteria=" + criteria +": Vote by"+ user.getUsername() + "]";
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public int getProject_id() {
-		return project_id;
-	}
-
-	public void setProject_id(int project_id) {
-		this.project_id = project_id;
-	}
-
 	public String getCriteria() {
 		return criteria;
 	}

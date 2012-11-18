@@ -1,12 +1,17 @@
 package jacs.database.exceed.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -17,9 +22,11 @@ public class Project_eXceed implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int project_ID;
+	private int id;
 	private String project_Name;
-	private int scores;
+	private int score;
+	@OneToMany(mappedBy="project",cascade=CascadeType.ALL)
+	private List<Ballot> ballot_box;
 	
 	public Project_eXceed()	{
 		
@@ -27,15 +34,29 @@ public class Project_eXceed implements Serializable{
 	public Project_eXceed(String project_Name) {
 		super();
 		this.project_Name = project_Name;
-		this.scores = 0;
+		this.score = 0;
+		ballot_box = new ArrayList<Ballot>();
 	}
 
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+	public void addBallot(Ballot ballot)	{
+		ballot.setProject(this);
+		ballot_box.add(ballot);
+	}
+	public List<Ballot> getBallots()	{
+		return ballot_box;
+	}
 	public int getProject_ID() {
-		return project_ID;
+		return id;
 	}
 
-	public void setProject_ID(int project_ID) {
-		this.project_ID = project_ID;
+	private void setProject_ID(int id) {
+		this.id = id;
 	}
 
 	public String getProject_Name() {
@@ -46,22 +67,16 @@ public class Project_eXceed implements Serializable{
 		this.project_Name = project_Name;
 	}
 
-	public int getScores() {
-		return scores;
-	}
-	public void setScores(int scores) {
-		this.scores = scores;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + project_ID;
+		result = prime * result + id;
 		result = prime * result
 				+ ((project_Name == null) ? 0 : project_Name.hashCode());
+		result = prime * result + score;
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -71,20 +86,23 @@ public class Project_eXceed implements Serializable{
 		if (!(obj instanceof Project_eXceed))
 			return false;
 		Project_eXceed other = (Project_eXceed) obj;
-		if (project_ID != other.project_ID)
+		if (id != other.id)
 			return false;
 		if (project_Name == null) {
 			if (other.project_Name != null)
 				return false;
 		} else if (!project_Name.equals(other.project_Name))
 			return false;
+		if (score != other.score)
+			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Project_eXceed [project_ID=" + project_ID + ", project_Name="
-				+ project_Name + ", scores=" + scores + "]";
+		return "Project_eXceed [id=" + id + ", project_Name=" + project_Name
+				+ ", score=" + score + "]";
 	}
+
 
 	
 }

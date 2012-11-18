@@ -27,34 +27,54 @@ public class UserJpaDao implements UserDAO{
 		em = emf.createEntityManager();
 	}
 	
-	public  String regisUser(User user) {
-		System.out.printf("Saving username : %s\n", user.getUsername());
+	public  String regisUser(String username,String password) {
+		System.out.printf("Saving username : %s\n", username);
 		EntityTransaction tx = em.getTransaction();
 		try {
-			//if(!checkMatchUser(user))	{
+			if(!checkMatchUser(findUserByName(username)))	{
+				User user = new User(username, password, "student");
 				tx.begin();
 				em.persist(user);
 				tx.commit();
 				System.out.printf("User saved. id = %d : Username = %s\n",user.getId(),user.getUsername());
 				System.out.printf("Save User Complete !!! \n");
-				return "REGIS_SUCCES" + ","+ user.getUsername() +","+user.getType();
-			//}
+				return "REGIS_SUCCESS" + ","+ user.getUsername() +","+user.getType();
+			}
 		} catch (Exception ex) {
 			System.out.println("Exception occurred!");
 			if (tx.isActive()) tx.rollback();
 		}
-		return "REGIS_FAILED"+","+user.getUsername()+","+user.getType();
+		return "REGIS_FAILED : "+username+" - Already used.";
+	}
+	public String deleteUser(String username,String password)	{
+		EntityTransaction tx = em.getTransaction();
+		try	{
+			if(checkMatchUser(findUserByName(username)))	{
+				User user = findUserByName(username);
+				tx.begin();
+				em.remove(user);
+				tx.commit();
+				System.out.printf("Remove. id = %d : Username = %s\n", user.getId(),user.getUsername());
+				return "REMOVE_SUCCESS";
+			}
+		}catch(Exception ex)	{
+			System.out.println("Exception occurred!");
+			if(tx.isActive()) tx.rollback();
+		}
+		return "REMOVE_FAILED";
+	}
+	public  String loginUser(String username,String password) {
+		User user = findUserByName(username);	
+		if(!checkMatchUser(user)) return "LOGIN_FAILED";
+		else return "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType();
 	}
 	
 	public String changePassword(User user,String new_password)	{
 		System.out.printf("change password user : %s\nOld password : %s\nNew password : %s\n",user.getUsername(),user.getPassword(),new_password);
 		EntityTransaction tx = em.getTransaction();
-		PersistenceUnitUtil util = emf.getPersistenceUnitUtil();
 		String msg = "null";
 		try{
 			tx.begin();
-			//User u = (User)findUser(user);
-			System.out.println(user.getId());
 			User u = em.find(User.class,(int)user.getId());
 			u.setPassword(new_password);
 			em.merge(u);
@@ -73,37 +93,17 @@ public class UserJpaDao implements UserDAO{
 			return msg;
 	}
 	
-	public  String login(User user) {
-
-		if(!checkMatchUser(user)) return "LOGIN_FAILED,"+user.getUsername()+","+user.getPassword();
-		else return "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType();
-	}
-	
-	
 	public boolean checkMatchUser(User user)	{
-		List<User> result = findUser(user);
-		System.out.printf("----------\nFound %d match\nUsername : %s\nPassword : %s \n",result.size(),user.getUsername(),user.getPassword());	
-		if(result.size() == 1) return true;
-		else return false;
+		if( user == null)	return false;
+		return true;
 	}
-	
-	
-	
-	public List<User> findUser(User user)	{
+	public User findUserByName(String username)	{
 		Query query =
-				em.createQuery("SELECT user from User user WHERE user.username = :username and user.password = :password");
-		query.setParameter("username", user.getUsername());
-		query.setParameter("password", user.getPassword());
+				em.createQuery("SELECT user from User user WHERE user.username = :username");
+		query.setParameter("username", username);
 		List<User> result = query.getResultList();
-		return result;
-	}
-	public User findTestDao(User user)	{
-		Query query =
-				em.createQuery("SELECT user from User user WHERE user.username = :username and user.password = :password");
-		query.setParameter("username", user.getUsername());
-		query.setParameter("password", user.getPassword());
-		User x = (User) query.getSingleResult();
-		return x;
+		if(!(result.size() == 0))	return result.get(0);
+		return null;
 	}
 	
 	public List<User> findAllUser()	{

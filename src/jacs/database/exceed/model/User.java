@@ -27,9 +27,8 @@ public class User implements Serializable{
 	private String password;
 	private String type;
 	
-	//@Transient
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
-	private List<Ballot> box_of_death;
+	private List<Ballot> ballot_box;
 	
 	public User()	{
 	
@@ -38,15 +37,15 @@ public class User implements Serializable{
 		this.username = username;
 		this.password = password;
 		this.type = type;
-		box_of_death = new ArrayList<Ballot>();
+		ballot_box = new ArrayList<Ballot>();
 	}
 	
 	public void addBallot(Ballot ballot)	{
 		ballot.setUser(this);
-		box_of_death.add(ballot);
+		ballot_box.add(ballot);
 	}
 	public List<Ballot> getBallots()	{
-		return box_of_death;
+		return ballot_box;
 	}
 	public Integer getId() {
 		return id;

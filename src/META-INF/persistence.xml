@@ -12,6 +12,7 @@
     <class>jacs.database.exceed.model.User</class>
     <class>jacs.database.exceed.model.Project_eXceed</class>
     <class>jacs.database.exceed.model.Ballot</class>
+    <class>jacs.database.exceed.model.Criteria</class>
     <properties>
     		<!-- this is for MySQL -->
     		<!--

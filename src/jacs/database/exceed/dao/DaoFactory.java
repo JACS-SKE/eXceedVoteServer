@@ -22,4 +22,6 @@ public abstract class DaoFactory {
 	}
 	public abstract UserDAO getUserDAO();
 	public abstract BallotDAO getBallotDAO();
+	public abstract CriteriaDAO getCriteriaDAO();
+	public abstract Project_eXceedDAO getProject_eXceedDAO();
 }

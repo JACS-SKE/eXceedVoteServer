@@ -15,11 +15,10 @@ public class Client extends Thread
 
     private ObjectOutputStream out;
 	private ObjectInputStream in;
-	//private DBController dbcontroller
 	private DatabasesController controller_db;
-    public Client(Server myServer,Socket mySocket) throws IOException
+    public Client(Server myServer,Socket mySocket)  throws IOException
     {
-    	//new db
+    		//new db
     		// create database controller
     		controller_db = new DatabasesController();
         this.myServer = myServer;
@@ -32,7 +31,8 @@ public class Client extends Thread
         		out = new ObjectOutputStream(mySocket.getOutputStream());
 			out.flush();
 			in = new ObjectInputStream(mySocket.getInputStream());
-			sendData("Connected to Server");
+			// initialize here.
+			sendData(controller_db.init());
         }
         catch(Exception e)
         {
@@ -57,7 +57,8 @@ public class Client extends Thread
         	while(true){
 				try{
 					String message = (String)in.readObject();
-					System.out.println("Message from ["+CLIENT_IP+"] ->" + message);
+					if(!message.equals(""))
+						System.out.println("Message from ["+CLIENT_IP+"] ->" + message);
 					//sendData("ok");
 					//sendData(db.receiveMsg(message));
 					sendData(controller_db.recieveMsg(message));
@@ -76,7 +77,7 @@ public class Client extends Thread
             killClient("ERROR->Client run() : "+e.toString());
         }
         catch(OutOfMemoryError ofm){
-        	killClient("Client Disconnected.");
+        		killClient("Client Disconnected.");
         }
         finally
         {
