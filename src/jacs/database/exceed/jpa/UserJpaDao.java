@@ -64,9 +64,17 @@ public class UserJpaDao implements UserDAO{
 		return "REMOVE_FAILED";
 	}
 	public  String loginUser(String username,String password) {
-		User user = findUserByName(username);	
+		User user = findUserByName(username);
+		String msg = "";
 		if(!checkMatchUser(user)) return "LOGIN_FAILED";
-		else return "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType();
+		else{
+			if(user.getType().equalsIgnoreCase("committee"))	{
+				msg = "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType()+",5";
+			}else	{
+				msg = "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType()+",1";
+			}
+		}
+		return msg;
 	}
 	
 	public String changePassword(User user,String new_password)	{
