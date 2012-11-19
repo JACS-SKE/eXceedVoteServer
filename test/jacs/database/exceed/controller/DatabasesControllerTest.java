@@ -19,7 +19,7 @@ public class DatabasesControllerTest {
 		Project_eXceedDAO p_dao = DaoFactory.getInstance().getProject_eXceedDAO();
 		CriteriaDAO cri_dao = DaoFactory.getInstance().getCriteriaDAO();
 		
-		/*		
+				
  		user_dao.regisUser("kimapiwat","1234");
 		p_dao.saveProject("Hook Hook");
 		p_dao.saveProject("Crysis");
@@ -29,13 +29,13 @@ public class DatabasesControllerTest {
 		cri_dao.saveCriteria("Best Game");
 		cri_dao.saveCriteria("Best Coding");
 		cri_dao.saveCriteria("Best of All");
-		*/
+		
 		
 		DatabasesController controller_db = new DatabasesController();
 		System.out.println(controller_db.init());
 		//VOTE: criteria_id1,project_name1#POINT:project_id1,point1:project_id2,point2#username
-		String s1 = "VOTE:6,Crysis#POINT:3,10:2,100#kimapiwat";
-		System.out.println(controller_db.recieveMsg(s1));
+		//String s1 = "VOTE:6,Crysis#POINT:3,10:2,100#kimapiwat";
+		//System.out.println(controller_db.recieveMsg(s1));
 	}
 
 }

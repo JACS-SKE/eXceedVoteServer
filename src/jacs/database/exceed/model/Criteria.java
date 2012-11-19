@@ -15,7 +15,7 @@ public class Criteria implements Serializable {
 
 	   
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private static final long serialVersionUID = 1L;
