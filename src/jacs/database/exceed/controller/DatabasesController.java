@@ -44,10 +44,8 @@ public class DatabasesController {
 			//POINT : project_id1,point1  :  project_id2,point2
 			//#
 			//username
-			System.out.println(msg);
 			
 			String[] temp_msg = msg.split("#");
-			for(String s : temp_msg)	System.out.println(s);
 			String username = temp_msg[2];
 			
 			//User who vote ---- VOTE  : criteria_id1,project_name1-----------------------------------
@@ -78,7 +76,6 @@ public class DatabasesController {
 		Ballot ballot;
 		String[] temp = voteForBallot.split(":");
 		for(int i=1; i<temp.length; i++)	{
-			System.out.println(temp[i]);
 			String[] sub_str = temp[i].split(",");
 			c = criteria_dao.findCriteriaByID(Integer.parseInt(sub_str[0]));
 			p = project_dao.findProjectByName(sub_str[1]);

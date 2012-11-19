@@ -27,7 +27,7 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 		Query q = em.createQuery("SELECT c FROM Criteria c WHERE c.name LIKE :name");
 		q.setParameter("name","%"+name+"%");
 		List<Criteria> result = q.getResultList();
-		System.out.printf("found %d matches\n",result.size());
+		System.out.printf("----------\nFound %d matches\nCriteria Name : %s\n",result.size(),name);
 		
 		if(!(result.size()==0)) return result.get(0);
 		else return null;
@@ -90,7 +90,7 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 		Query q = em.createQuery("SELECT c FROM Criteria c WHERE c.id =:id");
 		q.setParameter("id",id);
 		List<Criteria> result = q.getResultList();
-		System.out.printf("found %d matches\n",result.size());	
+		System.out.printf("----------\nFound %d matches\nCriteria ID : %d\n",result.size(),id);	
 		if(!(result.size()==0)) return result.get(0);
 		else return null;
 	}

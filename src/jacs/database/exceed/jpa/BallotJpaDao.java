@@ -44,7 +44,7 @@ public class BallotJpaDao implements BallotDAO{
 				tx.begin();
 				em.persist(b);
 				tx.commit();
-				System.out.printf("User saved. id = %d : Vote %s by %s\n",b.getId(),b.getCriteria(),b.getUser().getUsername());
+				System.out.printf("Ballot saved. id = %d : Vote %s by %s\n",b.getId(),b.getCriteria(),b.getUser().getUsername());
 				System.out.printf("Save Ballot Complete !!! \n");
 				return "VOTE_SUCCES" + ","+ b.getCriteria() +","+b.getUser().getUsername();
 		} catch (Exception ex) {
