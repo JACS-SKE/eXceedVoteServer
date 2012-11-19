@@ -59,7 +59,6 @@ public class Client extends Thread
 					String message = (String)in.readObject();
 					if(!message.equals(""))
 						System.out.println("Message from ["+CLIENT_IP+"] ->" + message);
-					//sendData("ok");
 					//sendData(db.receiveMsg(message));
 					sendData(controller_db.recieveMsg(message));
 				}

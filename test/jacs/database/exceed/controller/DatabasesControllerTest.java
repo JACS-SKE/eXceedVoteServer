@@ -16,26 +16,15 @@ public class DatabasesControllerTest {
 		// TODO Auto-generated method stub
 		
 		UserDAO user_dao = DaoFactory.getInstance().getUserDAO();
-		Project_eXceedDAO p_dao = DaoFactory.getInstance().getProject_eXceedDAO();
-		CriteriaDAO cri_dao = DaoFactory.getInstance().getCriteriaDAO();
-		
-				
- 		user_dao.regisUser("kimapiwat","1234");
-		p_dao.saveProject("Hook Hook");
-		p_dao.saveProject("Crysis");
-		p_dao.saveProject("Durian");
-		
-		cri_dao.saveCriteria("Best Design");
-		cri_dao.saveCriteria("Best Game");
-		cri_dao.saveCriteria("Best Coding");
-		cri_dao.saveCriteria("Best of All");
-		
+		Project_eXceedDAO project_dao = DaoFactory.getInstance().getProject_eXceedDAO();
+		CriteriaDAO criteria_dao = DaoFactory.getInstance().getCriteriaDAO();
 		
 		DatabasesController controller_db = new DatabasesController();
 		System.out.println(controller_db.init());
 		//VOTE: criteria_id1,project_name1#POINT:project_id1,point1:project_id2,point2#username
-		//String s1 = "VOTE:6,Crysis#POINT:3,10:2,100#kimapiwat";
-		//System.out.println(controller_db.recieveMsg(s1));
+		
+		String s1 = "VOTE:1,Assasin creed:2,JACS:3,Call of Duty 4:4,Assasin creed:5,FULL MOON:6,JACS#POINT:1,0:2,3:3,3:4,2:5,3:6,3#kimapiwat";
+		System.out.println(controller_db.recieveMsg(s1));
 	}
 
 }

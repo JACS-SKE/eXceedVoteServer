@@ -33,7 +33,8 @@ public class DatabasesController {
 		if(msg.contains(LOGIN) || msg.contains(REGIS))	{
 			String[] authentication = msg.split(",");
 			if(authentication[0].equalsIgnoreCase(LOGIN))	{
-				return authentication(authentication[1], authentication[2]);
+				if(authentication.length == 3)	return authentication(authentication[1], authentication[2]);
+				else return "LOGIN_FAILED";
 			}else	{
 				return registration(authentication[1], authentication[2]);
 			}
@@ -42,61 +43,68 @@ public class DatabasesController {
 			//#
 			//POINT : project_id1,point1  :  project_id2,point2
 			//#
-			Criteria c;
-			Project_eXceed p;
-			User user;
-			Ballot ballot;
 			//username
+			System.out.println(msg);
+			
 			String[] temp_msg = msg.split("#");
+			for(String s : temp_msg)	System.out.println(s);
 			String username = temp_msg[2];
 			
 			//User who vote ---- VOTE  : criteria_id1,project_name1-----------------------------------
-			user = user_dao.findUserByName(username);
-			// Vote for Ballot ------------------------------------- 
-			String[] vote = getVoteDescription(temp_msg[0]);
-			c = criteria_dao.findCriteriaByID(Integer.parseInt(vote[0]));
-			p = project_dao.findProjectByName(vote[1]);
+			User user = user_dao.findUserByName(username);
+			
+			// Vote for Ballot
+			voteForBallot(temp_msg[0], user);
+			// Vote for Point -- POINT : project_id1,point1  :  project_id2,point2 ------------------------------------------
+			voteForPoint(temp_msg[1]);	
+		}
+		return "VOTE_COMPELTE";
+	}
+	public void voteForPoint(String voteForPoint)	{
+		String[] sub_str = voteForPoint.split(":");
+		for(int i =1; i<sub_str.length; i++)	{
+			//POINT : project_id1,point1  :  project_id2,point2
+			String[] vote_for_point = sub_str[i].split(",");
+			System.out.println(
+					project_dao.updateScore(
+							project_dao.findProjectByID(
+									Integer.parseInt(vote_for_point[0])), Integer.parseInt(vote_for_point[1])));
+					
+		}
+	}
+	public void voteForBallot(String voteForBallot,User user)	{
+		Criteria c;
+		Project_eXceed p;
+		Ballot ballot;
+		String[] temp = voteForBallot.split(":");
+		for(int i=1; i<temp.length; i++)	{
+			System.out.println(temp[i]);
+			String[] sub_str = temp[i].split(",");
+			c = criteria_dao.findCriteriaByID(Integer.parseInt(sub_str[0]));
+			p = project_dao.findProjectByName(sub_str[1]);
 			ballot = new Ballot(c.getName());
 			ballot.setUser(user);
 			user.addBallot(ballot);
 			System.out.println(project_dao.updateBallot(p, ballot));
-			//----------------------------------------------------------
-			String[] point = temp_msg[1].split(":");
-			// Vote for Point -- POINT : project_id1,point1  :  project_id2,point2 ------------------------------------------
-			for(int i =1; i<point.length; i++)	{
-				//POINT : project_id1,point1  :  project_id2,point2
-				String[] vote_for_point = point[i].split(",");
-				System.out.println(vote_for_point[0]);
-				System.out.println(vote_for_point[1]);
-				System.out.println(
-						project_dao.updateScore(
-								project_dao.findProjectByID(
-										Integer.parseInt(vote_for_point[0])), Integer.parseInt(vote_for_point[1])));
-						
-			}
-			
-			
 		}
-		return "VOTE_COMPELTE";
-	}
-	public String[] getVoteDescription(String voteForBallot)	{
-		//separate VOTE  and  criteria_id1,project_name1
-		String[] temp_vote1 = voteForBallot.split(":");
-		//separate criteria_id and project_name
-		String[] temp_vote2 = temp_vote1[1].split(",");
-		return temp_vote2;
 	}
 	public String init()	{
 		
 		user_dao.regisUser("kimapiwat","1234");
-		project_dao.saveProject("Hook Hook");
-		project_dao.saveProject("Crysis");
-		project_dao.saveProject("Durian");
-		
+
+		project_dao.saveProject("Assasin creed");
+		project_dao.saveProject("Call of Duty 4");
+		project_dao.saveProject("Battlefield");
+		project_dao.saveProject("Walking Dead");
+		project_dao.saveProject("Breaking Dawn");
+		project_dao.saveProject("Taylor swift");
+			
 		criteria_dao.saveCriteria("Best Design");
 		criteria_dao.saveCriteria("Best Game");
 		criteria_dao.saveCriteria("Best Coding");
 		criteria_dao.saveCriteria("Best of All");
+		criteria_dao.saveCriteria("Drunker");
+		criteria_dao.saveCriteria("Coruption");
 		
 		
 		//INIT : id1,name1 : id2,name2 : id3,name3 

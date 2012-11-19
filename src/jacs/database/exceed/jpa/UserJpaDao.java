@@ -69,9 +69,9 @@ public class UserJpaDao implements UserDAO{
 		if(!checkMatchUser(user)) return "LOGIN_FAILED";
 		else{
 			if(user.getType().equalsIgnoreCase("committee"))	{
-				msg = "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType()+",5";
+				msg = "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType()+",10";
 			}else	{
-				msg = "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType()+",1";
+				msg = "LOGIN_SUCCESS,"+user.getUsername()+","+user.getType()+",5";
 			}
 		}
 		return msg;
