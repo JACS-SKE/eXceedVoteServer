@@ -7,6 +7,5 @@ import jacs.database.exceed.model.User;
 
 public interface BallotDAO {
 	public List<Ballot> getVote(User user);
-	//public void saveBallotToBox(Ballot ballot);
 	public String saveBallot(Ballot b);
 }

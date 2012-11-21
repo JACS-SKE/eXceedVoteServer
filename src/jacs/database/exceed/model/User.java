@@ -13,7 +13,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
+/**
+ * User is an entity (meaning that it can be saved to a database 
+ * or other Persistent storage).
+ * @author Apiwat Srisirisitthikul 5410546385
+ *
+ */
 @Entity
 @Table(name="people")
 public class User implements Serializable{
@@ -22,11 +27,19 @@ public class User implements Serializable{
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+	/**
+	 * Name's user.
+	 */
 	private String username;
+	/**
+	 * Password's user.
+	 */
 	private String password;
+	/** 
+	 * Type's user such as Committer or student.
+	 */
 	private String type;
-	
+	/** User has a collection of hobbies. */
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<Ballot> ballot_box;
 	
@@ -39,7 +52,10 @@ public class User implements Serializable{
 		this.type = type;
 		ballot_box = new ArrayList<Ballot>();
 	}
-	
+	/**
+	 * Add a Ballot that user voteBallot for each Project.
+	 * @param ballot the Ballot object to add.
+	 */
 	public void addBallot(Ballot ballot)	{
 		ballot.setUser(this);
 		ballot_box.add(ballot);

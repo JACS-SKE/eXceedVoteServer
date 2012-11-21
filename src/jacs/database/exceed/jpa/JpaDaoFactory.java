@@ -13,6 +13,10 @@ public class JpaDaoFactory extends DaoFactory{
 	protected Project_eXceedDAO projectJpaDao;
 	public JpaDaoFactory()	{
 	}
+	/**
+	 * Get UserJPA DAO
+	 * @return userDAO JPA
+	 */
 	@Override
 	public UserDAO getUserDAO() {
 		if(userJpaDao == null)	{
@@ -20,11 +24,19 @@ public class JpaDaoFactory extends DaoFactory{
 		}
 		return userJpaDao;
 	}
+	/** 
+	 * Get Ballot JPA DAO
+	 * @return ballotDAO JPA.
+	 */
 	@Override
 	public BallotDAO getBallotDAO() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	/** 
+	 * Get JPA criteria DAO.
+	 * @return criteriaDAO JPA.
+	 */
 	@Override
 	public CriteriaDAO getCriteriaDAO() {
 		// TODO Auto-generated method stub
@@ -33,6 +45,10 @@ public class JpaDaoFactory extends DaoFactory{
 		}
 		return criteriaJpaDao;
 	}
+	/** 
+	 * Get Prject_eXceed JPA .
+	 * @return Prject_eXceedDAO JPA.
+	 */
 	@Override
 	public Project_eXceedDAO getProject_eXceedDAO() {
 		// TODO Auto-generated method stub

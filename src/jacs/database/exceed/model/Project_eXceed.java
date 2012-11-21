@@ -14,6 +14,12 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 
+/**
+ * Project_eXceed is an entity (meaning that it can be saved to a database 
+ * or other Persistent storage).
+ * @author Apiwat Srisirisitthikul 5410546385
+ *
+ */
 @Entity
 @Table(name="ProjectList")
 public class Project_eXceed implements Serializable{
@@ -23,8 +29,17 @@ public class Project_eXceed implements Serializable{
 	//@GeneratedValue(strategy = GenerationType.AUTO)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	/**
+	 * Project's name.
+	 */
 	private String project_Name;
+	/**
+	 * Prject's score.
+	 */
 	private int score;
+	/**
+	 * Project_eXceed has a collection of hoobies.
+	 */
 	@OneToMany(mappedBy="project",cascade=CascadeType.ALL)
 	private List<Ballot> ballot_box;
 	
@@ -44,6 +59,10 @@ public class Project_eXceed implements Serializable{
 	public void setScore(int score) {
 		this.score = score;
 	}
+	/**
+	 * Add a new ballot for this project.
+	 * @param ballot the ballot object to add.
+	 */
 	public void addBallot(Ballot ballot)	{
 		ballot.setProject(this);
 		ballot_box.add(ballot);

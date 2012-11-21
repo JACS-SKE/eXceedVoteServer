@@ -11,7 +11,11 @@ import jacs.database.exceed.model.Criteria;
 import jacs.database.exceed.model.Project_eXceed;
 import jacs.database.exceed.model.User;
 
-
+/**
+ * Controller for eXceedVote Server : manage database. 
+ * @author GoDParTicle
+ *
+ */
 public class DatabasesController {
 	private static final String INIT = "INIT";
 	private static final String REGIS = "REGIS";
@@ -29,6 +33,11 @@ public class DatabasesController {
 		
 	}
 	
+	/**
+	 * This method recives message from Client Application for Authentication and Vote.  
+	 * @param msg : Client send the message to Authentication and Vote
+	 * @return	
+	 */
 	public String recieveMsg(String msg)	{
 		if(msg.contains(LOGIN) || msg.contains(REGIS))	{
 			String[] authentication = msg.split(",");
@@ -58,6 +67,11 @@ public class DatabasesController {
 		}
 		return "VOTE_COMPELTE";
 	}
+	
+	/**
+	 * Vote Project for Point.
+	 * @param voteForPoint : Pattern of String - POINT:project_id1,point1:project_id2,point2,...
+	 */
 	public void voteForPoint(String voteForPoint)	{
 		String[] sub_str = voteForPoint.split(":");
 		for(int i =1; i<sub_str.length; i++)	{
@@ -70,6 +84,11 @@ public class DatabasesController {
 					
 		}
 	}
+	/**
+	 * Vote Project for Ballot or Cateria.
+	 * @param voteForBallot : Pattern of String - VOTE  : criteria_id1,project_name1,... 
+	 * @param user : Use who vote for this Ballot.
+	 */
 	public void voteForBallot(String voteForBallot,User user)	{
 		Criteria c;
 		Project_eXceed p;
@@ -85,6 +104,11 @@ public class DatabasesController {
 			System.out.println(project_dao.updateBallot(p, ballot));
 		}
 	}
+	
+	/** 
+	 * Init Infromation in Database. and send message for initialization Client Application
+	 * @return init information for client application.
+	 */
 	public String init()	{
 		
 		user_dao.regisUser("kimapiwat","1234");
@@ -124,13 +148,22 @@ public class DatabasesController {
 		}
 		return "INIT_FAILED";
 	}
+	/**
+	 * Registration user.
+	 * @param username : username for user want to use login Client Application.
+	 * @param password : password for user want to use login Client Application.
+	 * @return msg for registration , such as : success or failed.
+	 */
 	public String registration(String username, String password)	{	
 		return user_dao.regisUser(username, password);
 	}
+	/** 
+	 * Login user.
+	 * @param username : name's user for login.
+	 * @param password : password's user for login.
+	 * @return
+	 */
 	public String authentication(String username,String password)	{
 		return user_dao.loginUser(username,password);
-	}
-	public String vote()	{
-		return null;
 	}
 }

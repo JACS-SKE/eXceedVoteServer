@@ -14,17 +14,34 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-
+/**
+ * Using JPA Dao to manager information of Project in database.
+ * @author Apiwat Srisirisitthikul 5410546385
+ *
+ */
 public class Project_eXceedJpaDao implements Project_eXceedDAO {
-
-private static final String PERSISTENCE_UNIT = "exceedvote";
-	
+	/**
+	 * This is the Persistence Unit Name in persistence.xml file.
+	 */
+	private static final String PERSISTENCE_UNIT = "exceedvote";
+	/**
+	 * EntityManagerFactory is how you access JPA services.
+	 */
 	private static EntityManagerFactory emf;
+	/**
+	 * EntityManager does the actual work.
+	 */
 	private static EntityManager em;
+	//create the entity manager factory only one time.
 	static {
 		emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 		em = emf.createEntityManager();
 	}
+	/**
+	 * Find Project in Database by name.
+	 * @param name : name of Project.
+	 * @return Object of Project_eXceed.
+	 */
 	@Override
 	public Project_eXceed findProjectByName(String name) {
 		// TODO Auto-generated method stub
@@ -36,6 +53,10 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 		if(!(result.size()==0))	return result.get(0);
 		return null;
 	}
+	/**
+	 * Find All of Project in Database.
+	 * @return List of Project.
+	 */
 	@Override
 	public List<Project_eXceed> findAllProjects() {
 		Query query = em.createQuery("SELECT project from Project_eXceed project");
@@ -44,12 +65,22 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 		if(!(result.size()==0))	return result;
 		return null;
 	}
+	/**
+	 * Check : In the Databse have project or not.
+	 * @param project that you want to check.
+	 * @return  true if match. otherwise false.
+	 */
 	@Override
 	public boolean checkMatchProject(Project_eXceed project) {
 		// TODO Auto-generated method stub
 		if(!(project == null))	return true;
 		return false;
 	}
+	/**
+	 * Save Project into Database.
+	 * @param name of Project that you want to save.
+	 * @return message for confirm that saved.
+	 */
 	@Override
 	public String saveProject(String name) {
 		// TODO Auto-generated method stub
@@ -69,6 +100,11 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 		}
 		return "SAVE_PROJECT_FAILED";
 	}
+	/** 
+	 * Delete Project in Database.
+	 * @param name of Project that you want to delete.
+	 * @return message for confirm that deleted.
+	 */
 	@Override
 	public String deleteProject(String name) {
 		// TODO Auto-generated method stub
@@ -88,6 +124,11 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 		}
 		return null;
 	}
+	/** 
+	 * Find Project in Database by id.
+	 * @param id : id of Project.
+	 * @return Object of Project_eXceed.
+	 */
 	@Override
 	public Project_eXceed findProjectByID(int id) {
 		// TODO Auto-generated method stub
@@ -99,6 +140,12 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 		if( !(result.size()==0)) return result.get(0);
 		return null;
 	}
+	/**
+	 * Update Ballot into database went Voter,Committee or User give Ballot to each Project.
+	 * @param project : each Project that Voter give ballot .
+	 * @param ballot : Ballot contains name of Criteria that vote by Voter.
+	 * @return message for confirm  Vote for Ballot.
+	 */
 	@Override
 	public String updateBallot(Project_eXceed project,Ballot ballot) {
 		// TODO Auto-generated method stub
@@ -124,6 +171,12 @@ private static final String PERSISTENCE_UNIT = "exceedvote";
 		else 
 			return msg;
 	}
+	/**
+	 * Update Score into database went Voter give score to each Project.
+	 * @param project : each Project that Voter give Score.
+	 * @param score : score that gave by Boter.
+	 * @return message for confirm Vote for score.
+	 */
 	@Override
 	public String updateScore(Project_eXceed project, int score) {
 		// TODO Auto-generated method stub

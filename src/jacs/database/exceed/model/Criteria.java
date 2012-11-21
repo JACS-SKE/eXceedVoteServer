@@ -7,16 +7,20 @@ import javax.persistence.*;
 
 /**
  * Entity implementation class for Entity: Criteria
- *
+ * Criteria is an entity (meaning that it can be saved to a dabase
+ * or other Persistent storage).
+ * @author Apiwat Srisirisitthikul 5410546385
  */
 @Entity
-
 public class Criteria implements Serializable {
 
 	   
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	/**
+	 * Criterai's name.
+	 */
 	private String name;
 	private static final long serialVersionUID = 1L;
 
