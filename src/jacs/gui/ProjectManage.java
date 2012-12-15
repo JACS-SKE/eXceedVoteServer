@@ -17,7 +17,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
-
+/**
+ * This class Gui_page_Project for eXceedVoteServer
+ * @author Nookskill
+ *
+ */
 public class ProjectManage extends JPanel{
 	
 	public static Project_eXceedDAO p_dao = DaoFactory.getInstance().getProject_eXceedDAO();

@@ -11,8 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 /**
+<<<<<<< HEAD
  * This class MainGui for eXceedVoteServer.
  * @author nookskill
+=======
+ * This class MainGUI for eXceedVoteServer
+ * @author Nookskill
+ *
+>>>>>>> guitest
  */
 public class Gui extends JFrame{
 	public static Scanner sc = new Scanner(System.in);

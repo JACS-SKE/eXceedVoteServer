@@ -8,7 +8,11 @@ import jacs.server.Server;
 /**
  * This class Main for Running Server for eXceedVote.
  * @author GoDParTicle
+<<<<<<< HEAD
  * @author nookskill
+=======
+ * @author Nookskill
+>>>>>>> guitest
  */
 
 public class Main {
