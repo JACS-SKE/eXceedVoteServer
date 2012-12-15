@@ -2,6 +2,7 @@ package jacs;
 
 import java.util.Scanner;
 
+import jacs.gui.Gui;
 import jacs.server.Server;
 
 /**
@@ -13,6 +14,7 @@ import jacs.server.Server;
 public class Main {
 	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
-		new Server();
+		Gui gui = new Gui();
+		gui.run();
 	}
 }
