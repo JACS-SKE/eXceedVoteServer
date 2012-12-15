@@ -37,11 +37,11 @@ public class Gui extends JFrame{
         tabbedPane.addTab("Project",panel2);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-		JComponent panel3 = new Result();
+		JComponent panel3 = new CriteriaManage();
         tabbedPane.addTab("Criteria",panel3);
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
-		JComponent panel4 = new CriteriaManage();
+		JComponent panel4 = new Result();
         tabbedPane.addTab("Result",panel4);
         tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
         

@@ -1,11 +1,12 @@
 package jacs.gui;
 
+import jacs.database.exceed.dao.CriteriaDAO;
 import jacs.database.exceed.dao.DaoFactory;
-import jacs.database.exceed.dao.Project_eXceedDAO;
-import jacs.database.exceed.model.Project_eXceed;
+import jacs.database.exceed.model.Criteria;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,8 +18,8 @@ import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
 
 public class CriteriaManage extends JPanel{
-	public static Project_eXceedDAO p_dao = DaoFactory.getInstance().getProject_eXceedDAO();
-	 JLabel name = new JLabel("Project name "); 
+	public static CriteriaDAO cri_dao = DaoFactory.getInstance().getCriteriaDAO();
+	 JLabel name = new JLabel("Add Criteria "); 
     JTextField projectName = new JTextField(15);
     JButton add = new JButton("Add");
     JButton delete = new JButton("Delete");
@@ -34,13 +35,13 @@ public class CriteriaManage extends JPanel{
 		table.setEnabled(false);
 		scrollPane = new JScrollPane(table);
        SpringLayout layout = new SpringLayout();
-       model.addColumn("Projects"); 
-		java.util.List<Project_eXceed> list = p_dao.findAllProjects();
-		Iterator<Project_eXceed> it = list.iterator();
+       model.addColumn("Criteria"); 
+		List<Criteria> list = cri_dao.findAllCriteria();
+		Iterator<Criteria> it = list.iterator();
 		while(it.hasNext())	{
-			Project_eXceed project = it.next();
+			Criteria criteria = it.next();
 			//table.setValueAt(user.getUsername(), i, 0);
-			model.addRow(new Object[]{project.getProject_Name()}); 
+			model.addRow(new Object[]{criteria.getName()}); 
 			
 		}
        
@@ -107,7 +108,7 @@ class ButtonListener implements ActionListener{
 			if(event.getActionCommand().equals("Add")){
 				String userkey = projectName.getText().toString();
 			
-				String mess = p_dao.saveProject(userkey);
+				String mess = cri_dao.saveCriteria(userkey);
 				message.setText(mess);
 				projectName.setText("");
 				model.addRow(new Object[]{userkey}); 
@@ -116,7 +117,7 @@ class ButtonListener implements ActionListener{
 			else if(event.getActionCommand().equals("Delete")){
 				String userkey = projectName.getText().toString();
 				
-				String mess = p_dao.deleteProject(userkey);
+				String mess = cri_dao.deleteCriteria(userkey);
 				message.setText(mess);
 				projectName.setText("");
 				int length = model.getRowCount();
