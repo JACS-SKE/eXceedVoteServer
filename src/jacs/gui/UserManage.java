@@ -133,8 +133,8 @@ public class UserManage extends JPanel{
 				message.setText(mess);
 				username.setText("");
 				password.setText("");
-				
-				model.addRow(new Object[]{userkey}); 
+				if(mess.contains("REGIS_SUCCESS"))
+					model.addRow(new Object[]{userkey}); 
 
 				
 			}

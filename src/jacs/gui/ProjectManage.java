@@ -117,7 +117,9 @@ class ButtonListener implements ActionListener{
 				String mess = p_dao.saveProject(userkey);
 				message.setText(mess);
 				projectName.setText("");
-				model.addRow(new Object[]{userkey}); 
+				
+				if(mess.contains("SAVE_PROJECT_SUCCESS"))
+					model.addRow(new Object[]{userkey}); 
 				
 			}
 			else if(event.getActionCommand().equals("Delete")){

@@ -111,7 +111,9 @@ class ButtonListener implements ActionListener{
 				String mess = cri_dao.saveCriteria(userkey);
 				message.setText(mess);
 				projectName.setText("");
-				model.addRow(new Object[]{userkey}); 
+				
+				if(mess.contains("ADD_CRITERIA_SUCCESSED"))
+					model.addRow(new Object[]{userkey}); 
 				
 			}
 			else if(event.getActionCommand().equals("Delete")){

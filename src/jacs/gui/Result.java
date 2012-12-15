@@ -20,11 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Result extends JPanel{
 	public static Project_eXceedDAO p_dao = DaoFactory.getInstance().getProject_eXceedDAO();
-	 JLabel name = new JLabel("Project name "); 
-   JTextField projectName = new JTextField(15);
-   JButton add = new JButton("Add");
-   JButton delete = new JButton("Delete");
-   JLabel message = new JLabel();
+   JButton refresh = new JButton("Refresh");
    DefaultTableModel model = new DefaultTableModel();
    JTable table ;
    JScrollPane scrollPane;
@@ -35,65 +31,36 @@ public class Result extends JPanel{
 		table = new JTable(model);
 		table.setEnabled(false);
 		scrollPane = new JScrollPane(table);
+		
       SpringLayout layout = new SpringLayout();
-      model.addColumn("Projects"); 
+      model.addColumn("Projects");
+      model.addColumn("Ballot");
+      model.addColumn("Score");
 		java.util.List<Project_eXceed> list = p_dao.findAllProjects();
 		Iterator<Project_eXceed> it = list.iterator();
 		while(it.hasNext())	{
 			Project_eXceed project = it.next();
-			//table.setValueAt(user.getUsername(), i, 0);
-			model.addRow(new Object[]{project.getProject_Name()}); 
+			model.addRow(new Object[]{project.getProject_Name(),project.getBallots(),project.getScore()}); 
 			
 		}
       
       this.setLayout(layout);
       
-      this.add(name);
-      this.add(projectName);
-      this.add(add);
-      this.add(delete);
-      this.add(message);
+      this.add(refresh);
       this.add(scrollPane);
       ActionListener listener = new ButtonListener();
-      add.addActionListener(listener);
-      delete.addActionListener(listener);		
+      refresh.addActionListener(listener);	
       
-      layout.putConstraint(SpringLayout.WEST, name,
+      
+      layout.putConstraint(SpringLayout.WEST, refresh,
               100,
               SpringLayout.WEST, this);
-      layout.putConstraint(SpringLayout.WEST, projectName,
-              5,
-              SpringLayout.EAST, name);
-      layout.putConstraint(SpringLayout.NORTH, name,
-              30,
-              SpringLayout.NORTH, this);
-      layout.putConstraint(SpringLayout.NORTH, projectName,
-              30,
-              SpringLayout.NORTH, this);
-
-      /************************/
-      layout.putConstraint(SpringLayout.WEST, add,
-              100,
-              SpringLayout.WEST, this);
-      layout.putConstraint(SpringLayout.WEST, delete,
-              5,
-              SpringLayout.EAST, name);
-      layout.putConstraint(SpringLayout.NORTH, add,
+      layout.putConstraint(SpringLayout.NORTH, refresh,
               90	,
               SpringLayout.NORTH, this);
-      layout.putConstraint(SpringLayout.NORTH, delete,
-              90,
-              SpringLayout.NORTH, this);        
-      /**********************/
-      layout.putConstraint(SpringLayout.WEST, message,
-              100,
-              SpringLayout.WEST, this);
-      layout.putConstraint(SpringLayout.NORTH, message,
-              120	,
-              SpringLayout.NORTH, this);
-      /**********************/
+      /************************************/
       layout.putConstraint(SpringLayout.WEST, scrollPane,
-              400,
+              300,
               SpringLayout.WEST, this);
       layout.putConstraint(SpringLayout.NORTH, scrollPane,
               30	,
@@ -101,36 +68,25 @@ public class Result extends JPanel{
       
 
 	}
-class ButtonListener implements ActionListener{
+	class ButtonListener implements ActionListener{
 		
 		
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			if(event.getActionCommand().equals("Add")){
-				String userkey = projectName.getText().toString();
-			
-				String mess = p_dao.saveProject(userkey);
-				message.setText(mess);
-				projectName.setText("");
-				model.addRow(new Object[]{userkey}); 
-				
-			}
-			else if(event.getActionCommand().equals("Delete")){
-				String userkey = projectName.getText().toString();
-				
-				String mess = p_dao.deleteProject(userkey);
-				message.setText(mess);
-				projectName.setText("");
-				int length = model.getRowCount();
-				for(int i=0;i<length;i++){
-					if(model.getValueAt(i, 0).toString().equals(userkey)){
-						model.removeRow(i);
-						break;
-					}
+			if(event.getActionCommand().equals("Refresh")){
+				int row = model.getRowCount();
+				for(int i=0;i<row;row--){
+						model.removeRow(i);	
+				}
+				java.util.List<Project_eXceed> list = p_dao.findAllProjects();
+				Iterator<Project_eXceed> it = list.iterator();
+				while(it.hasNext())	{
+					Project_eXceed project = it.next();
+					model.addRow(new Object[]{project.getProject_Name(),project.getBallots(),project.getScore()}); 
+					
 				}
 			}
 			
 		}
-		
 	}
 }
