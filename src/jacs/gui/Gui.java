@@ -42,9 +42,13 @@ public class Gui extends JFrame{
         tabbedPane.addTab("Project",panel2);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-		JComponent panel3 = result();
-        tabbedPane.addTab("Result",panel3);
+		JComponent panel3 = new CriteriaManage();
+        tabbedPane.addTab("Criteria",panel3);
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
+
+		JComponent panel4 = new Result();
+        tabbedPane.addTab("Result",panel4);
+        tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
         
 		add(tabbedPane);
 		tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -55,10 +59,6 @@ public class Gui extends JFrame{
 		new Server();
 	}
 	
-	protected JComponent result() {
-        JPanel panel = new JPanel(false);
 
-        return panel;
-    }
 
 }
