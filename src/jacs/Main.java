@@ -6,7 +6,7 @@ import jacs.server.Server;
 
 /**
  * This class Main for Running Server for eXceedVote.
- * @author GoDParTicle
+ * @author GoDParTicle,nookskill
  *
  */
 
