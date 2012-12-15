@@ -19,7 +19,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
-
+/**
+ * This class Gui_page_User for eXceedVoteServer
+ * @author Nookskill
+ *
+ */
 public class UserManage extends JPanel{
 	
 	private static UserDAO user_dao = DaoFactory.getInstance().getUserDAO();
