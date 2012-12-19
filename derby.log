@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Dec 19 23:42:44 ICT 2012:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-013b-b40b-b5dd-0000049715e0 
+Wed Dec 19 23:50:44 ICT 2012:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-013b-b413-089e-00000498c4a8 
 on database directory /temp/exceedvote  with class loader sun.misc.Launcher$AppClassLoader@7a9664a1 
 Loaded from file:/Users/EzZero/Downloads/lib/derby.jar
 java.vendor=Apple Inc.
