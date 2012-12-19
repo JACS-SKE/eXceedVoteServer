@@ -17,7 +17,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.table.DefaultTableModel;
-
+/**
+ * A class that display scores and ballots.
+ * @author nookskill
+ * @author Chayanon
+ *
+ */
 public class Result extends JPanel{
 	public static Project_eXceedDAO p_dao = DaoFactory.getInstance().getProject_eXceedDAO();
    JButton refresh = new JButton("Refresh");
