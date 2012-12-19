@@ -1,16 +1,10 @@
 ----------------------------------------------------------------
-<<<<<<< HEAD
-Sat Dec 15 19:37:24 ICT 2012:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-013b-9e91-a900-0000026bb740 
-on database directory C:\Temp\exceedvote  with class loader sun.misc.Launcher$AppClassLoader@79f1a8a 
-=======
-Sat Dec 15 21:21:03 ICT 2012:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-013b-9ef0-8db5-0000025fa738 
-on database directory C:\Temp\exceedvote  with class loader sun.misc.Launcher$AppClassLoader@4dd761d0 
->>>>>>> guitest
-Loaded from file:/C:/Users/admin/Documents/workspace/lib/derby.jar
-java.vendor=Oracle Corporation
-java.runtime.version=1.7.0_06-b24
-user.dir=C:\Users\admin\Documents\workspace\eXceedVoteServer
+Wed Dec 19 23:42:44 ICT 2012:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-013b-b40b-b5dd-0000049715e0 
+on database directory /temp/exceedvote  with class loader sun.misc.Launcher$AppClassLoader@7a9664a1 
+Loaded from file:/Users/EzZero/Downloads/lib/derby.jar
+java.vendor=Apple Inc.
+java.runtime.version=1.6.0_37-b06-434-11M3909
+user.dir=/Users/EzZero/softspec/eXceedVoteServer
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

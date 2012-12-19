@@ -130,12 +130,13 @@ public class UserManage extends JPanel{
 				String userkey = username.getText().toString();
 				String passkey = password.getText().toString();
 				String mess = user_dao.regisUser(userkey, passkey);
-				message.setText(mess);
-				username.setText("");
-				password.setText("");
-				if(mess.contains("REGIS_SUCCESS"))
-					model.addRow(new Object[]{userkey}); 
-
+				if(!userkey.equals(""))	{
+					message.setText(mess);
+					username.setText("");
+					password.setText("");
+					if(mess.contains("REGIS_SUCCESS"))
+						model.addRow(new Object[]{userkey}); 
+				}
 				
 			}
 			else if(event.getActionCommand().equals("Delete")){

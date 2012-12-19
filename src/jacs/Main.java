@@ -2,6 +2,7 @@ package jacs;
 
 import java.util.Scanner;
 
+import jacs.database.exceed.controller.DatabasesController;
 import jacs.gui.Gui;
 import jacs.server.Server;
 
@@ -18,6 +19,8 @@ import jacs.server.Server;
 public class Main {
 	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
+		//DatabasesController data = new DatabasesController();
+		//data.init();
 		Gui gui = new Gui();
 		gui.run();
 		
