@@ -130,7 +130,11 @@ public class UserManage extends JPanel{
 				String userkey = username.getText().toString();
 				String passkey = password.getText().toString();
 				String mess = user_dao.regisUser(userkey, passkey);
+<<<<<<< HEAD
 				if(!userkey.equals("")){
+=======
+				if(!userkey.equals(""))	{
+>>>>>>> 675cd1c08d2179cbfc4a01242f1933b255bd168e
 					message.setText(mess);
 					username.setText("");
 					password.setText("");

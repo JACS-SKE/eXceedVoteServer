@@ -114,14 +114,21 @@ class ButtonListener implements ActionListener{
 			if(event.getActionCommand().equals("Add")){
 				String userkey = projectName.getText().toString();	
 				String mess = p_dao.saveProject(userkey);
+<<<<<<< HEAD
 				
 				if(!userkey.equals("")){
+=======
+				if(!userkey.equals(""))	{
+>>>>>>> 675cd1c08d2179cbfc4a01242f1933b255bd168e
 					message.setText(mess);
 					projectName.setText("");
 					if(mess.contains("SAVE_PROJECT_SUCCESS"))
 						model.addRow(new Object[]{userkey}); 
 				}
+<<<<<<< HEAD
 				
+=======
+>>>>>>> 675cd1c08d2179cbfc4a01242f1933b255bd168e
 			}
 			else if(event.getActionCommand().equals("Delete")){
 				String userkey = projectName.getText().toString();
