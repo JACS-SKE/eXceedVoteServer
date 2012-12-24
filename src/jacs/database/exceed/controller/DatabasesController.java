@@ -145,6 +145,7 @@ public class DatabasesController {
 				sb.append(":" + c.getId() + "," + c.getName());
 			}
 			return sb.toString();
+
 		}
 		return "INIT_FAILED";
 	}

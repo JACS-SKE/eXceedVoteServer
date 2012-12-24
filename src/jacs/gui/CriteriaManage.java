@@ -1,8 +1,12 @@
 package jacs.gui;
 
+import jacs.database.exceed.controller.DatabasesController;
 import jacs.database.exceed.dao.CriteriaDAO;
 import jacs.database.exceed.dao.DaoFactory;
+import jacs.database.exceed.dao.Project_eXceedDAO;
 import jacs.database.exceed.model.Criteria;
+import jacs.database.exceed.model.Project_eXceed;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -19,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class CriteriaManage extends JPanel{
 	public static CriteriaDAO cri_dao = DaoFactory.getInstance().getCriteriaDAO();
+	private Project_eXceedDAO project_dao;
+	private CriteriaDAO criteria_dao;
 	 JLabel name = new JLabel("Add Criteria "); 
     JTextField projectName = new JTextField(15);
     JButton add = new JButton("Add");
@@ -102,7 +108,7 @@ public class CriteriaManage extends JPanel{
 	}
 class ButtonListener implements ActionListener{
 		
-		
+	
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			if(event.getActionCommand().equals("Add")){
@@ -112,8 +118,12 @@ class ButtonListener implements ActionListener{
 				message.setText(mess);
 				projectName.setText("");
 				
-				if(mess.contains("ADD_CRITERIA_SUCCESSED"))
+				if(mess.contains("ADD_CRITERIA_SUCCESSED")){
 					model.addRow(new Object[]{userkey}); 
+					
+				
+				}
+				
 				
 			}
 			else if(event.getActionCommand().equals("Delete")){
@@ -133,5 +143,8 @@ class ButtonListener implements ActionListener{
 			
 		}
 		
+
+		
 	}
 }
+
